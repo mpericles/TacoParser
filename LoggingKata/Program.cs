@@ -29,21 +29,51 @@ namespace LoggingKata
             // Grab an IEnumerable of locations using the Select command: var locations = lines.Select(parser.Parse);
             var locations = lines.Select(parser.Parse).ToArray();
 
-            // DON'T FORGET TO LOG YOUR STEPS
+            ITrackable location1 = null;
+            ITrackable location2 = null;
+            double distance = 0;
 
-            // Now that your Parse method is completed, START BELOW ----------
+            for (int i = 0; i < locations.Length; i++)
+            {
+                var locA = locations[i];
+                GeoCoordinate corA = new GeoCoordinate(locA.Location.Latitude, locA.Location.Longitude);
 
-            // TODO: Create two `ITrackable` variables with initial values of `null`. These will be used to store your two taco bells that are the farthest from each other.
-            // Create a `double` variable to store the distance
+                // DON'T FORGET TO LOG YOUR STEPS
 
-            // Include the Geolocation toolbox, so you can compare locations: `using GeoCoordinatePortable;`
+                // Now that your Parse method is completed, START BELOW ----------
 
-            //HINT NESTED LOOPS SECTION---------------------
-            // Do a loop for your locations to grab each location as the origin (perhaps: `locA`)
+                // TODO: Create two `ITrackable` variables with initial values of `null`. These will be used to store your two taco bells that are the farthest from each other.
+                // Create a `double` variable to store the distance
+               
 
-            // Create a new corA Coordinate with your locA's lat and long
+                // Include the Geolocation toolbox, so you can compare locations: `using GeoCoordinatePortable;`
 
-            // Now, do another loop on the locations with the scope of your first loop, so you can grab the "destination" location (perhaps: `locB`)
+                //HINT NESTED LOOPS SECTION---------------------
+                // Do a loop for your locations to grab each location as the origin (perhaps: `locA`)
+                               
+                    // Create a new corA Coordinate with your locA's lat and long
+
+
+                    // Now, do another loo = new Gp on the locations with the scope of your first loop, so you can grab the "destination" location (perhaps: `locB`)
+                    for (int x = 0; x < locations.Length; x++)
+                    {
+                        var locB = locations[x];
+
+
+                        GeoCoordinate corB = new GeoCoordinate(locB.Location.Latitude, locB.Location.Longitude);
+                        if (corA.GetDistanceTo(corB) > distance)
+                        {
+                            location1 = locA;
+                            location2 = locB;
+                            distance = corA.GetDistanceTo(corB);
+                        }
+                    }
+                   
+                
+            }
+           
+            Console.WriteLine($" Distance: {distance*.000621371} \n {location1.Name} \n {location2.Name}");
+            
 
             // Create a new Coordinate with your locB's lat and long
 
